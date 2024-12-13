@@ -192,7 +192,7 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let name = person.name;
-        return Individual{name:name, age:age.unwrap(), marital:marital, education:education, children:children.unwrap(), smoke:smoke, activity:activity, employment:employment, income:income.unwrap(), alcohol:alcohol, diet:diet, sleep:sleep, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition, mental_illness:mental_illness};
+        return Individual{name:name, age:age.unwrap()/80.0, marital:marital, education:education, children:children.unwrap()/4.0, smoke:smoke, activity:activity, employment:employment, income:income.unwrap()/209995.22, alcohol:alcohol, diet:diet, sleep:sleep, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition, mental_illness:mental_illness};
     }
 
     pub fn split(all_data: Vec<Individual>) -> (Vec<Individual>, Vec<Individual>) {
