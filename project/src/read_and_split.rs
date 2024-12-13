@@ -48,6 +48,12 @@ pub mod read_split {
         pub mental_illness: f32,
     }
 
+    impl Individual {
+        pub fn data(&self) -> Vec<f32> {
+            return vec![self.age, self.marital, self.education, self.children, self.smoke, self.activity, self.employment, self.income, self.alcohol, self.diet, self.sleep, self.substance_abuse, self.family_history_depression, self.chronic_condition];
+        }
+    }
+
     pub fn read_csv<P: AsRef<Path> + std::fmt::Display>(filename: P) -> Result<Vec<Person>, Box<dyn Error>> {
         // Check if the file exists before trying to open it
         if fs::metadata(&filename).is_err() {
@@ -61,10 +67,6 @@ pub mod read_split {
         for (index,row) in rdr.deserialize::<Vec<String>>().enumerate() { // for Vec<String> in rdr
             if index != 0 {
                 let unwrapped = row.unwrap();//.split(","); // 
-                // let mut unwrapped = vec![];
-                // for elem in unwrapped0 {
-                //     unwrapped.push(elem); // unwrapped is Vec<&str>
-                // }
                 let name = unwrapped[0].to_string();
                 let age = unwrapped[1].to_string();
                 let marital = unwrapped[2].to_string();
@@ -98,20 +100,20 @@ pub mod read_split {
         let mut marital = 0.0;
         // println!("{:?}", person.marital);
         match person.marital.as_str() {
-            "Single" => marital = 1.0,
-            "Married" => marital = 2.0,
-            "Divorced" => marital = 3.0,
-            "Widowed" => marital = 4.0,
+            "Single" => marital = 0.0,
+            "Married" => marital = 0.33,
+            "Divorced" => marital = 0.66,
+            "Widowed" => marital = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut education = 0.0;
         // println!("{:?}", person.education);
         match person.education.as_str() {
             "High School" => education = 0.0,
-            "Associate Degree" => education = 1.0,
-            "Bachelor's Degree" => education = 2.0,
-            "Master's Degree" => education = 3.0,
-            "PhD" => education = 4.0,
+            "Associate Degree" => education = 0.25,
+            "Bachelor's Degree" => education = 0.5,
+            "Master's Degree" => education = 0.75,
+            "PhD" => education = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let children = person.children.parse::<f32>();
@@ -119,16 +121,16 @@ pub mod read_split {
         // println!("{:?}", person.smoke);
         match person.smoke.as_str() {
             "Non-smoker" => smoke = 0.0,
-            "Former" => smoke = 1.0,
-            "Current" => smoke = 2.0,
+            "Former" => smoke = 0.5,
+            "Current" => smoke = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut activity = 0.0;
         // println!("{:?}", person.activity);
         match person.activity.as_str() {
             "Sedentary" => activity = 0.0,
-            "Moderate" => activity = 1.0,
-            "Active" => activity = 2.0,
+            "Moderate" => activity = 0.5,
+            "Active" => activity = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut employment = 0.0;
@@ -143,24 +145,24 @@ pub mod read_split {
         // println!("{:?}", person.alcohol);
         match person.alcohol.as_str() {
             "Low" => alcohol = 0.0,
-            "Moderate" => alcohol = 1.0,
-            "High" => alcohol = 2.0,
+            "Moderate" => alcohol = 0.5,
+            "High" => alcohol = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut diet = 0.0;
         // println!("{:?}", person.diet);
         match person.diet.as_str() {
             "Unhealthy" => diet = 0.0,
-            "Moderate" => diet = 1.0,
-            "Healthy" => diet = 2.0,
+            "Moderate" => diet = 0.5,
+            "Healthy" => diet = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut sleep = 0.0;
         // println!("{:?}", person.sleep);
         match person.sleep.as_str() {
             "Poor" => sleep = 0.0,
-            "Fair" => sleep = 1.0,
-            "Good" => sleep = 2.0,
+            "Fair" => sleep = 0.5,
+            "Good" => sleep = 1.0,
             &_ => println!("not supposed to happen"),
         }
         let mut substance_abuse = 0.0;
@@ -207,42 +209,3 @@ pub mod read_split {
         return (train_data, test_data)
     }
 }
-
-
-// pub mod split {
-
-//     // pub struct Individual {
-//     //     pub name: String,
-
-//     //     pub age: f32,
-//     //     pub marital: f32,
-//     //     pub education: f32,
-//     //     pub children: f32,
-//     //     pub smoke: f32,
-//     //     pub activity: f32,
-//     //     pub employment: f32,
-//     //     pub income: f32,
-//     //     pub alcohol: f32,
-//     //     pub diet: f32,
-//     //     pub sleep: f32,
-//     //     pub substance_abuse: f32,
-//     //     pub family_history_depression: f32,
-//     //     pub chronic_condition: f32,   
-
-//     //     pub mental_illness: f32,
-//     // }
-
-//     pub fn split(all_data: Vec<Individual>) -> (Vec<Individual>, Vec<Individual>) {
-//         let mut train_data:Vec<Individual> = vec![];
-//         let mut test_data:Vec<Individual> = vec![];
-//         for (index,row) in all_data.into_iter().enumerate() {
-//             if index < 145000 {
-//                 train_data.push(row);
-//             }
-//             else {
-//                 test_data.push(row);
-//             }
-//         }
-//         return (train_data, test_data)
-//     }
-// }
