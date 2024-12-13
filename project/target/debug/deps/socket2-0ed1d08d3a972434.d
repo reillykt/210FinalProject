@@ -1,0 +1,11 @@
+/opt/app-root/src/210FinalProject/project/target/debug/deps/libsocket2-0ed1d08d3a972434.rmeta: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sockaddr.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/socket.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/utils.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sys/unix.rs
+
+/opt/app-root/src/210FinalProject/project/target/debug/deps/libsocket2-0ed1d08d3a972434.rlib: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sockaddr.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/socket.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/utils.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sys/unix.rs
+
+/opt/app-root/src/210FinalProject/project/target/debug/deps/socket2-0ed1d08d3a972434.d: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sockaddr.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/socket.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/utils.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sys/unix.rs
+
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/lib.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sockaddr.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/socket.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/utils.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/socket2-0.3.19/src/sys/unix.rs:

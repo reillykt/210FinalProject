@@ -1,0 +1,11 @@
+/opt/app-root/src/210FinalProject/project/target/debug/deps/libxattr-ce08d5c488a0eb1b.rmeta: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/error.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/mod.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/util.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/linux_macos.rs
+
+/opt/app-root/src/210FinalProject/project/target/debug/deps/libxattr-ce08d5c488a0eb1b.rlib: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/error.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/mod.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/util.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/linux_macos.rs
+
+/opt/app-root/src/210FinalProject/project/target/debug/deps/xattr-ce08d5c488a0eb1b.d: /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/lib.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/error.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/mod.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/util.rs /opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/linux_macos.rs
+
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/lib.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/error.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/mod.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/util.rs:
+/opt/app-root/src/.cargo/registry/src/index.crates.io-6f17d22bba15001f/xattr-1.3.1/src/sys/linux_macos.rs:
