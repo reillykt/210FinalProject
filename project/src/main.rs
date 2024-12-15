@@ -243,29 +243,43 @@ fn hypothesis_test(index:usize, individuals_vector:Vec<Individual>) {
 
     println!("\nBecause the results of the Neural Network aren't very high, I want to test whether or not the most important attribute, 
     according to the weights calculated in the training of the neural network, actually has a relationship with having a history of mental illness.");
-    println!("\nConducting a hypothesis to see if the attribute {:?} actually has a relationship with having a history of mental illness", most_important_feature);
+    println!("\nConducting a 2-sample independent z-test to see if the attribute {:?} actually has a relationship with having a history of mental illness", most_important_feature);
     
-    println!("\nNull H0: P(Mental Illness | {:?}) - P(Mental Illness) = 0", most_important_feature);
+    println!("\nNull H0: P(Mental Illness | {:?}) - P(Mental Illness) = 0", most_important_feature); 
+    // same as P(Mentally ill|Has Chronic) - P(Mentally ill| Does Not Have Chronic)
     println!("Alternate HA: P(Mental Illness | {:?}) - P(Mental Illness) > 0", most_important_feature);
 
-    let mut mentally_ill = 0.0;
     let mut mentally_ill_with_condition = 0.0;
     let mut total_with_chronic = 0.0;
-    let mut total_individuals = 0.0;
+
+    let mut mentally_ill_without_condition = 0.0;
+    let mut total_without_chronic = 0.0;
+
     for individual in individuals_vector {
-        total_individuals += 1.0;
-        if individual.mental_illness == 1.0 {
-            mentally_ill += 1.0;
-        }
         if individual.chronic_condition == 1.0 {
             total_with_chronic += 1.0;
             if individual.mental_illness == 1.0 {
                 mentally_ill_with_condition += 1.0;
             }
         }
-    }
-    let p_hat = mentally_ill_with_condition/total_with_chronic - mentally_ill/total_individuals;
-    println!("\nthe observed statistic is: {:?}", p_hat);
+        if individual.chronic_condition == 0.0 {
+            total_without_chronic += 1.0;
+            if individual.mental_illness == 1.0 {
+                mentally_ill_without_condition += 1.0;
+            }
+        }
+    }cargo
+    let p_hat1 = mentally_ill_with_condition/total_with_chronic;
+    let p_hat2 = mentally_ill_without_condition/total_without_chronic;
+    println!("{:?}% of people with chronic conditions have a history with mental illness. {:?}% of people without a chronic condition have a history with mental illness.", p_hat1 * 100.0, p_hat2 * 100.0);
+    let p_hat = (mentally_ill_with_condition + mentally_ill_without_condition) as f32 /(total_with_chronic + total_without_chronic) as f32;
+    let q_hat = 1.0 as f32 - p_hat;
+    let standard_error = (p_hat * q_hat * ((1.0/total_with_chronic) + (1.0/total_without_chronic)) as f32).sqrt();
+    let test_statistic = (p_hat1 - p_hat2) / standard_error; // test statistic is Z
+    let rejection_region = 1.281552;
+
+    println!("The test statistic Z = {:?}", test_statistic);
+    println!("The rejection region for the test statistic is anything where Z > {:?}", rejection_region);
 }
 
 fn standard_deviation(mean:f32, all_datapoints: Vec<f32>) -> f32 {
