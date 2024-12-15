@@ -1,12 +1,12 @@
 pub mod read_split {
 
-    // use serde::Deserialize;
     use std::path::Path;
     use std::fs;
     use csv;
     use std::error::Error;
 
     #[derive(Debug)]
+    #[derive(Clone)]
     pub struct Person {
         pub name: String,
         pub age: String,
@@ -26,6 +26,7 @@ pub mod read_split {
         pub chronic_condition: String,  
     }
 
+    #[derive(Clone)]
     #[derive(Debug)]
     pub struct Individual {
         pub name: String,
@@ -53,6 +54,15 @@ pub mod read_split {
             return vec![self.age, self.marital, self.education, self.children, self.smoke, self.activity, self.employment, self.income, self.alcohol, self.diet, self.sleep, self.substance_abuse, self.family_history_depression, self.chronic_condition];
         }
     }
+    // impl Clone for Individual {
+    //     fn clone(&self) -> Self {
+    //         Individual {
+    //             age: self.age,
+    //             name: self.name.clone(),
+                
+    //         }
+    //     }
+    // }
 
     pub fn read_csv<P: AsRef<Path> + std::fmt::Display>(filename: P) -> Result<Vec<Person>, Box<dyn Error>> {
         // Check if the file exists before trying to open it
@@ -66,7 +76,7 @@ pub mod read_split {
     
         for (index,row) in rdr.deserialize::<Vec<String>>().enumerate() { // for Vec<String> in rdr
             if index != 0 {
-                let unwrapped = row.unwrap();//.split(","); // 
+                let unwrapped = row.unwrap();
                 let name = unwrapped[0].to_string();
                 let age = unwrapped[1].to_string();
                 let marital = unwrapped[2].to_string();
@@ -84,10 +94,6 @@ pub mod read_split {
                 let family_history_depression = unwrapped[14].to_string();
                 let chronic_condition = unwrapped[15].to_string();
     
-                // let mut mental_illness = false;
-                // if unwrapped[11] == "Yes".to_string() {
-                //     mental_illness = true;
-                // }
                 let person = Person{name:name, age:age, marital:marital, education:education, children:children, smoke:smoke, activity:activity, employment:employment, income:income, alcohol:alcohol, diet:diet, sleep:sleep, mental_illness:mental_illness, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition};
                 vector_of_people.push(person);
             }
@@ -98,7 +104,6 @@ pub mod read_split {
     pub fn to_individual(person:Person) -> Individual {
         let age = person.age.parse::<f32>();
         let mut marital = 0.0;
-        // println!("{:?}", person.marital);
         match person.marital.as_str() {
             "Single" => marital = 0.0,
             "Married" => marital = 0.33,
@@ -107,7 +112,6 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut education = 0.0;
-        // println!("{:?}", person.education);
         match person.education.as_str() {
             "High School" => education = 0.0,
             "Associate Degree" => education = 0.25,
@@ -118,7 +122,6 @@ pub mod read_split {
         }
         let children = person.children.parse::<f32>();
         let mut smoke = 0.0;
-        // println!("{:?}", person.smoke);
         match person.smoke.as_str() {
             "Non-smoker" => smoke = 0.0,
             "Former" => smoke = 0.5,
@@ -126,7 +129,6 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut activity = 0.0;
-        // println!("{:?}", person.activity);
         match person.activity.as_str() {
             "Sedentary" => activity = 0.0,
             "Moderate" => activity = 0.5,
@@ -134,7 +136,6 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut employment = 0.0;
-        // println!("{:?}", person.employment);
         match person.employment.as_str() {
             "Employed" => employment = 1.0,
             "Unemployed" => employment = 0.0,
@@ -142,7 +143,6 @@ pub mod read_split {
         }
         let income = person.income.parse::<f32>();
         let mut alcohol = 0.0;
-        // println!("{:?}", person.alcohol);
         match person.alcohol.as_str() {
             "Low" => alcohol = 0.0,
             "Moderate" => alcohol = 0.5,
@@ -150,7 +150,6 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut diet = 0.0;
-        // println!("{:?}", person.diet);
         match person.diet.as_str() {
             "Unhealthy" => diet = 0.0,
             "Moderate" => diet = 0.5,
@@ -158,7 +157,6 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut sleep = 0.0;
-        // println!("{:?}", person.sleep);
         match person.sleep.as_str() {
             "Poor" => sleep = 0.0,
             "Fair" => sleep = 0.5,
@@ -166,14 +164,12 @@ pub mod read_split {
             &_ => println!("not supposed to happen"),
         }
         let mut substance_abuse = 0.0;
-        // println!("{:?}", person.substance_abuse);
         match person.substance_abuse.as_str() {
             "Yes" => substance_abuse = 1.0,
             "No" => substance_abuse = 0.0,
             &_ => println!("not supposed to happen"),
         }
         let mut family_history_depression = 0.0;
-        // println!("{:?}", person.family_history_depression);
         match person.family_history_depression.as_str() {
             "Yes" => family_history_depression = 1.0,
             "No" => family_history_depression = 0.0,
@@ -195,6 +191,7 @@ pub mod read_split {
         return Individual{name:name, age:age.unwrap()/80.0, marital:marital, education:education, children:children.unwrap()/4.0, smoke:smoke, activity:activity, employment:employment, income:income.unwrap()/209995.22, alcohol:alcohol, diet:diet, sleep:sleep, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition, mental_illness:mental_illness};
     }
 
+    // splits the data --> 70% into training, 30% into testing
     pub fn split(all_data: Vec<Individual>) -> (Vec<Individual>, Vec<Individual>) {
         let mut train_data:Vec<Individual> = vec![];
         let mut test_data:Vec<Individual> = vec![];
