@@ -25,6 +25,8 @@ fn main() {
     let mut net = Network{w1, w2};
     let (trained_network, distribution) = train(&mut net, train_data); // training my network and getting back a trained network
 
+    test(trained_network, test_data, distribution); // using the trained network to test
+
     // looks ugly, but I'm just calling forward propagation on vectors where only 1 of the elements is equal to 1 and the rest to 0,
     // and using that to find the attribute that had the biggest impact on calculating the weights for my neural network.
     let (_hidden, age_test) = net.forward_propagation(&specific_element(0));
@@ -52,8 +54,6 @@ fn main() {
             most_important_index = i;
         }
     }
-    
-    test(trained_network, test_data, distribution); // using the trained network to test
 
     hypothesis_test(most_important_index, individuals_vector0);
 }
@@ -94,6 +94,7 @@ fn train(net:&mut Network, train_data:Vec<Individual>) -> (Network,Vec<f32>) {
     let output_mean = mean(all_outputs.clone());
     let output_standard_deviation = standard_deviation(output_mean, all_outputs.clone());
     let distribution = vec![output_mean, output_standard_deviation];
+    println!("initial data distribution: {:?}", distribution);
 
     let trained_w1 = net.w1.clone();
     let trained_w2 = net.w2.clone();
@@ -126,10 +127,11 @@ fn test (net:Network, test_data: Vec<Individual>, distribution:Vec<f32>) {
     }
     
     let new_distribution = vec![distribution[0] / (distribution[0] / 0.5), distribution[1] / (distribution[0] / 0.5)]; // I want the mean to be 0.5 and the standard deviation change to be proportional to that
-    
+    println!("scaled data distribution: {:?}", new_distribution);
+
     // I'm transforming all of the outputs to fit my new desired distribution which center around a mean of 0.5, so when I round them to 0, or 1, those who are below the mean are rounded to zero, and the opposite for those above.
     let mut standardized_outputs = Vec::new();
-    for output in all_outputs {
+    for output in &all_outputs {
         let z_score = (output - distribution[0])/distribution[1]; // z = (x - mu) / sd <-- z-score under the original distribution
         let standardized_output = (z_score * new_distribution[1]) + 0.5; // x = (z * sd) + mu <-- using that^ z-score to find where output falls in new distribution
         standardized_outputs.push(standardized_output);
@@ -137,11 +139,24 @@ fn test (net:Network, test_data: Vec<Individual>, distribution:Vec<f32>) {
     // println!("original mean of outputs: {:?}, original standard deviation of outputs: {:?}", distribution[0], distribution[1]);
     // println!("transformed mean of outputs: {:?}, transformed standard deviation of outputs: {:?}", new_distribution[0], new_distribution[1]);
 
+    let mut rounded_original = Vec::new();
+    for output in &all_outputs {
+        rounded_original.push(output.round());
+    }
+
     let mut rounded_outputs = Vec::new();
     for output in &standardized_outputs {
         rounded_outputs.push(output.round());
     }
+    let original_errors = elementwise_subtraction(rounded_original.clone(), all_targets.clone()); // rounded_outputs should be either 0 or 1, all_targets should be either 0 or 1
     let errors = elementwise_subtraction(rounded_outputs.clone(), all_targets.clone()); // rounded_outputs should be either 0 or 1, all_targets should be either 0 or 1
+
+    let mut original_accuracy = 0;
+    for error in original_errors {
+        if error == 0.0 {
+            original_accuracy += 1;
+        }
+    }
     let mut accuracy = 0;
     for error in errors {
         if error == 0.0 {
@@ -149,6 +164,8 @@ fn test (net:Network, test_data: Vec<Individual>, distribution:Vec<f32>) {
         }
     }
     let percentage_correct = accuracy as f32 / count as f32 * 100.0;
+    let original_percentage_correct = original_accuracy as f32 / count as f32 * 100.0;
+    println!("\nUsing the original distribution, the accuracy of the neural network to indentify mental illness within an individual is {:?}%", original_percentage_correct);
     println!("\nThe accuracy of the neural network to indentify mental illness within an individual is {:?}%", percentage_correct);
 }
 

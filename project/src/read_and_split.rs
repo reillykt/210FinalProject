@@ -29,8 +29,7 @@ pub mod read_split {
     #[derive(Clone)]
     #[derive(Debug)]
     pub struct Individual {
-        pub name: String,
-
+        
         pub age: f32,
         pub marital: f32,
         pub education: f32,
@@ -54,15 +53,6 @@ pub mod read_split {
             return vec![self.age, self.marital, self.education, self.children, self.smoke, self.activity, self.employment, self.income, self.alcohol, self.diet, self.sleep, self.substance_abuse, self.family_history_depression, self.chronic_condition];
         }
     }
-    // impl Clone for Individual {
-    //     fn clone(&self) -> Self {
-    //         Individual {
-    //             age: self.age,
-    //             name: self.name.clone(),
-                
-    //         }
-    //     }
-    // }
 
     pub fn read_csv<P: AsRef<Path> + std::fmt::Display>(filename: P) -> Result<Vec<Person>, Box<dyn Error>> {
         // Check if the file exists before trying to open it
@@ -187,8 +177,8 @@ pub mod read_split {
             "No" => mental_illness = 0.0,
             &_ => println!("not supposed to happen"),
         }
-        let name = person.name;
-        return Individual{name:name, age:age.unwrap()/80.0, marital:marital, education:education, children:children.unwrap()/4.0, smoke:smoke, activity:activity, employment:employment, income:income.unwrap()/209995.22, alcohol:alcohol, diet:diet, sleep:sleep, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition, mental_illness:mental_illness};
+        let _name = person.name;
+        return Individual{age:(age.unwrap()-18.0)/62.0, marital:marital, education:education, children:children.unwrap()/4.0, smoke:smoke, activity:activity, employment:employment, income:income.unwrap()/209995.22, alcohol:alcohol, diet:diet, sleep:sleep, substance_abuse:substance_abuse, family_history_depression:family_history_depression, chronic_condition:chronic_condition, mental_illness:mental_illness};
     }
 
     // splits the data --> 70% into training, 30% into testing
